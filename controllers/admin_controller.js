@@ -3,5 +3,4 @@
 // @Access PRIVATE
 exports.CreateAdministrator = async (req,res) => {
 
-   
 }
