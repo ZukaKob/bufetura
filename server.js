@@ -12,6 +12,7 @@ app.use(express.urlencoded({extended:true}))
 app.use('/api/v1', require('./routes/auth_routes'))
 app.use(require('./routes/admin_routes')) 
 app.use('/api/v1/administrator', require('./routes/administrator_routes')) 
+app.use('/api/v1/order', require('./routes/order_routes'))
 
 mongoose    
     .connect(process.env.MONGO_URI, {useNewUrlParser: true, useUnifiedTopology: true})
