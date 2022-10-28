@@ -6,7 +6,6 @@ const { RegisterUser,
         ResetPassword
 } = require('../controllers/auth_controllers')
 
-router.get('/register', (req,res) => {res.json({success:true})}) 
 router.post('/register', RegisterUser) 
 router.post('/login', LoginUser) 
 router.get('/verify/:token', VerifyUser)

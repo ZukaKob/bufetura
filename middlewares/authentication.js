@@ -17,5 +17,4 @@ exports.AuthenticateAdmin = async (req,res,next) => {
     } else {
         return res.json({msg: 'You are not allowed to do that'})
     }
-    
 }

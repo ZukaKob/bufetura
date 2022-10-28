@@ -16,7 +16,7 @@ exports.SendVerificationEmail = (to, url, txt) => {
         to: to, 
         subject: `Bufeteria`,
         html: `
-        <div style="max-width: 700px; margin:auto; border: 10px solid #ddd; padding: 50px 20px; font-size: 110%;">
+        <div style="max-width: 700px; margin:0 auto; border: 10px solid #ddd; padding: 50px 20px; font-size: 110%; border-radius: 10px">
         <h2 style="text-align: center; text-transform: uppercase;color: teal;">მოგესალმებით ბუფეტერიაში</h2>
         <p>გაიარე ვერიფიკაცია რათა შეძლო გამოიყენო ჩვენი უთესლესი აპლიკაცია</p>
         

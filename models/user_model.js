@@ -11,8 +11,7 @@ const UserSchema = Schema({
 }, {
     toJSON: {
         transform(doc, ret) {
-            delete ret.password,
-            delete ret.verified
+            delete ret.password
         }
     },
     timestamps:true

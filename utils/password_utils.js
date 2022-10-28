@@ -16,6 +16,10 @@ exports.CreateAccessToken = (user) => {
     return jwt.sign(user, process.env.SECRET_KEY, {expiresIn: '30d'})
 }
 
+exports.CreateAdministratorToken = (admin) => {
+    return jwt.sign(admin, process.env.SECRET_KEY, {expiresIn: '60d'})
+}
+
 exports.VerifyUser = (user) => {
     return jwt.verify(user, process.env.SECRET_KEY)
 }
@@ -49,4 +53,11 @@ exports.ValidateIfUserIsAdmin = async (req) => {
     } 
 
     return false 
+}
+
+exports.ValidateIfModerator = async (req) => {
+    const token = req.get('Authorization') 
+    if(token) {
+        
+    }
 }
