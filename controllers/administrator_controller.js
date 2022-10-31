@@ -1,5 +1,6 @@
+const Food = require('../models/foods_model')
 const Administrator = require('../models/bufetura_model')
-const { CreateAdministratorToken } = require('../utils/password_utils')
+const { CreateAdministratorToken, VerifyUser } = require('../utils/password_utils')
 
 
 // @Desc administrator login 
@@ -40,5 +41,34 @@ exports.LoginAdministrator = async (req,res) => {
 // @Route POST /api/v1/administrator/add_food
 // @Access Private
 exports.AddFood = async (req,res) => {
-    console.log(123)
+    const user = req.user
+
+    if(user !== null) {
+        try {
+            const created_food = new Food({
+                bufetura_id: user,
+                name: req.body.name,
+                category: req.body.category,
+                description: req.body.description,
+                price: req.body.price 
+            })
+
+            await created_food.save()
+            return res.json({
+                success:true,
+                created_food: created_food
+            })
+        } catch (error) {
+            return res.json({
+                success:false,
+                msg: 'Something wrong try again later',
+                error: error
+            })
+        }
+    } else {
+        res.status(400).json({success:false})
+    }
+    
+    
+
 }

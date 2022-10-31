@@ -4,13 +4,7 @@ const BufeturaSchema = new Schema({
 
     username:{type:String,required:true},
     password:{type:String,required:true},
-    name: {type:String,required:true,unique:true},
-    address:{type:String,required:true},
-    foods: [{
-        type: SchemaTypes.ObjectId,
-        ref: 'food'
-    }],
-    coverImages: {type:[String]}
+    name: {type:String,required:true,unique:true}
 
 }, {
     // toJSON: {

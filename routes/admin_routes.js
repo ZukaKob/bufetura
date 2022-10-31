@@ -3,7 +3,8 @@ const { CreateAdministrator,
         GetAllAdministrator,
         GetAdministrator,
         GetAllUser,
-        GetUser
+        GetUser,
+        FindFoodForEachBufetura
 } = require('../controllers/admin_controller')
 const { AuthenticateAdmin } = require('../middlewares/authentication')
 
@@ -16,6 +17,6 @@ router.get('/admin/get_administratos', AuthenticateAdmin, GetAllAdministrator)
 router.get('/admin/get_administrator/:username', AuthenticateAdmin, GetAdministrator)
 router.get('/admin/get_users', AuthenticateAdmin, GetAllUser)
 router.get('/admin/get_user/:email', AuthenticateAdmin, GetUser)
-
+router.get('/admin/bufetura/:name', FindFoodForEachBufetura)
 
 module.exports = router 

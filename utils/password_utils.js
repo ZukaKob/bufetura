@@ -54,10 +54,3 @@ exports.ValidateIfUserIsAdmin = async (req) => {
 
     return false 
 }
-
-exports.ValidateIfModerator = async (req) => {
-    const token = req.get('Authorization') 
-    if(token) {
-        
-    }
-}

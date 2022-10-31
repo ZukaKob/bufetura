@@ -7,18 +7,18 @@ const Food = require('../models/foods_model')
 // @Access PRIVATE
 exports.CreateAdministrator = async (req,res) => {
     
-    const { username, password, name, address} = req.body 
-    const new_bufetura_user = new Bufetura({
+    const { username, password, name } = req.body 
+    const new_bufetura_user = new Bufetura ({
         username: username,
         password: password, 
-        name: name,
-        address: address
+        name: name
     })
 
     try {
         await new_bufetura_user.save() 
         res.status(200).json({success:true, bufetura: new_bufetura_user})
     } catch (error) {
+        console.log(error)
         res.status(400).json({
             success:false, 
             msg: "Something wrong, try again later"
@@ -131,6 +131,35 @@ exports.GetFoodWithName = async (req,res) => {
         return res.status(400).json({
             success:false,
             msg: "Something wrong, try again"
+        })
+    }
+}
+
+// @Desc admin get each bufetura food, they are looking them for their unique name
+// @Route GET /admin/bufetura/:name 
+// @Access Private
+exports.FindFoodForEachBufetura = async (req,res) => {
+    const bufetura = await Bufetura.findOne({name: req.params.name})
+    if(bufetura !== null) {
+
+        try {
+            const foods = await Food.find({bufetura_id: bufetura._id})
+            console.log('123')
+            return res.status(200).json({
+                bufetura_name: bufetura.name,
+                foods: foods 
+            })            
+        } catch (error) {
+            return res.status(400).json({
+                success:false,
+                msg: "Something wrong try again" 
+            })
+        }
+
+    } else {
+        res.status(400).json({
+            success:false,
+            msg: "Error invalid name"
         })
     }
 }
