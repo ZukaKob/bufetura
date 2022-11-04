@@ -1,6 +1,7 @@
 const Food = require('../models/foods_model')
 const Administrator = require('../models/bufetura_model')
 const { CreateAdministratorToken, VerifyUser } = require('../utils/password_utils')
+const cloudinary = require('../utils/cloudinary')
 
 
 // @Desc administrator login 
@@ -42,13 +43,16 @@ exports.LoginAdministrator = async (req,res) => {
 // @Access Private
 exports.AddFood = async (req,res) => {
     const user = req.user
-
     if(user !== null) {
+        
+        const cloudinary_image = await cloudinary.uploader.upload(req.file.path, {folder: 'bufetura'})
+
         try {
             const created_food = new Food({
                 bufetura_id: user,
                 name: req.body.name,
                 category: req.body.category,
+                image: cloudinary_image.url,
                 description: req.body.description,
                 price: req.body.price 
             })
@@ -68,7 +72,4 @@ exports.AddFood = async (req,res) => {
     } else {
         res.status(400).json({success:false})
     }
-    
-    
-
 }

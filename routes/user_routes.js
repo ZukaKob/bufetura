@@ -1,18 +1,19 @@
-const { addItemToCart,
-        getCartItems,
-        deleteCartItems
-} = require('../controllers/cart_controller')
-const { UserCreateOrder } = require('../controllers/user_controller')
+const {
+    UserCreateOrder,
+    UserGetFoods,
+    UserGetsPendingOrders,
+    UserGetFinishedOrders
+} = require('../controllers/user_controller')
 const { Authenticate } = require('../middlewares/authentication')
 
 const router = require('express').Router()
 
-router.get('/cart', Authenticate, getCartItems)
-router.delete('/cart/:food_id', deleteCartItems)
-router.post('/cart/:food_id', Authenticate, addItemToCart)
-router.post('/create_order', Authenticate, UserCreateOrder)
 
-
+router.get('/foods', Authenticate, UserGetFoods)
+router.post('/order', Authenticate, UserCreateOrder)
+router.get('/pending_orders', Authenticate, UserGetsPendingOrders)
+router.get('/finished_orders', Authenticate, UserGetFinishedOrders)
+ 
 // router.get('/favourite_order', userGetFavouriteOrder)
 // router.post('/add_to_favourites', userCreateFavouriteOrder)
 // router.get('/get_order', userGetsAllOrder)

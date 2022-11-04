@@ -20,7 +20,7 @@ exports.RegisterUser = async (req,res) => {
             return res.status(400).json({success:false, msg:"Enter all fields"})
         } 
         else if(!ValidateEmail(email)){
-            return res.json({success:false, msg:"Enter valid email"})
+            return res.status(400).json({success:false, msg:"Enter valid email"})
         }
         else {
             const user = await User.findOne({email}) 
