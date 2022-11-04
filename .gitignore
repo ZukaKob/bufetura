@@ -2,3 +2,5 @@
 node_modules/
 # Package files
 package-lock.json
+# env secret files
+.env 

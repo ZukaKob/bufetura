@@ -2,6 +2,7 @@ const Food = require('../models/foods_model')
 const Administrator = require('../models/bufetura_model')
 const { CreateAdministratorToken, VerifyUser } = require('../utils/password_utils')
 const cloudinary = require('../utils/cloudinary')
+const Order = require('../models/order_model')
 
 
 // @Desc administrator login 
@@ -71,5 +72,59 @@ exports.AddFood = async (req,res) => {
         }
     } else {
         res.status(400).json({success:false})
+    }
+}
+
+// @Desc administrator gets pending orders after that he have to accept
+// @Route POST /api/v1/administrator/pending_orders
+// @Access Private
+exports.GetPendingOrders = async (req,res) => {
+    const user = req.user 
+    if(user!==null) {
+        try {
+            const pending_orders = await Order.find({
+                pending: true
+            })
+            res.status(200).json({
+                success:true,
+                pending_orders: pending_orders 
+            })
+        } catch (error) {
+            res.status(400).json({
+                success:false, 
+                msg: "Something wrong try again"
+            })
+        }
+    } else {
+        res.status(400).json({
+            success:false,
+            msg: "Something wrong try again later"
+        })
+    }
+}
+
+// @Desc administrator accpets pending order 
+// @Route POST /api/v1/administrator/accept_order/:order_id 
+// @Access Private
+exports.AcceptOrders = async (req,res) => {
+    const user = req.user 
+    if(user !== null) {
+        try {
+            const accepted_order = await Order.findByIdAndUpdate(req.params.order_id, {accept: true})  
+            res.status(200).json({
+                success:true,
+                order: accepted_order
+            })            
+        } catch (error) {
+            res.status(400).json({
+                success:false,
+                msg: "Something wrong try again later"
+            })
+        }
+    } else {
+        res.status(400).json({
+            success:false,
+            msg: "Somethign wrong please try again"
+        })
     }
 }

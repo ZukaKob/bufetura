@@ -1,5 +1,6 @@
 const router  = require('express').Router() 
-const { RegisterUser,
+const {
+        RegisterUser,
         LoginUser,
         VerifyUser,
         ForgotPassword,

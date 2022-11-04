@@ -14,9 +14,10 @@ app.use(bodyParser.urlencoded({extended:true}))
 app.use('/images', express.static(path.join(__dirname, 'images')))
 
 app.use('/api/v1', require('./routes/auth_routes'))
-app.use(require('./routes/admin_routes')) 
+app.use('/api/v1/admin', require('./routes/admin_routes')) 
 app.use('/api/v1/administrator', require('./routes/administrator_routes')) 
 app.use('/api/v1/user', require('./routes/user_routes'))
+app.use(require('./routes/error_routes')) 
 
 mongoose    
     .connect(process.env.MONGO_URI, {useNewUrlParser: true, useUnifiedTopology: true})

@@ -76,7 +76,8 @@ exports.LoginUser = async(req,res) => {
                     const access_token = await CreateAccessToken(user.toJSON())
                     res.status(200).json({
                         success: true,
-                        token: access_token 
+                        token: access_token,
+                        user: user 
                     })
                 } else {
                     res.status(400).json({
